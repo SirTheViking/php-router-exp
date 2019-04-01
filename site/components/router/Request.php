@@ -52,7 +52,8 @@ class Request implements Ifc_Request {
 
         $response = array(
             "message" => $message,
-            "status" => $status
+            "status" => $status,
+            "method" => $this->requestMethod // just for me
         );
 
         return json_encode($response);
@@ -67,7 +68,9 @@ class Request implements Ifc_Request {
             return file_get_contents("$root/views/404.php");
         }
 
-        return file_get_contents($file);
+        ob_start();
+        include $file;
+        return ob_get_clean();
     }
 }
 

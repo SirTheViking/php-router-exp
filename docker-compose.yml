@@ -16,7 +16,7 @@ services:
     volumes:
       - ./site:/var/www/html
     ports:
-      - 5000:80
+      - 80:80
     depends_on:
       - db
     links:

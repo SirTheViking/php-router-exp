@@ -36,16 +36,19 @@
     }
 
 
+    // Handle non existent request methods
     private function handleInvalidMethod() {
         header("{$this->request->serverProtocol} 405 Method Not Allowed");
     }
 
     
+    // Handle non existent files
     private function defaultRequestHandler() {
         header("{$this->request->serverProtocol} 404 Not Found");
     }
 
 
+    // Run whatever the closure in the request from 'index.php' says
     private function resolve() {
         $methodDict = $this->{ strtolower($this->request->requestMethod) };
         $formattedRoute = $this->formatRoute($this->request->requestUri);

@@ -13,4 +13,7 @@ $router->get("/data", function($request) {
     return $request->render("/views/data.php");
 });
 
+// /login    ? /user/login
+// /register ? /user/register
+
 ?>

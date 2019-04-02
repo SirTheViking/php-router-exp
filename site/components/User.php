@@ -39,6 +39,7 @@ class User {
         $this->email = htmlspecialchars($newEmail);
     }
 
+    // WIP
     public function login() {
         $connection = $this->database->getConnection();
 
@@ -52,6 +53,7 @@ class User {
         ));
     }
 
+    // WIP
     public function register() {
         $connection = $this->database->getConnection();
 

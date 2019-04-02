@@ -12,6 +12,7 @@ $user = new User();
 $user->setPassword($_POST["password"]);
 $user->setEmail($_POST["email"]);
 $user->login();
+// TODO: Simple template engine to render easier?
 
 exit(0);
 ?>

@@ -47,7 +47,7 @@ class Request implements Ifc_Request {
     }
 
 
-    public function json_respond($message, $status) {
+    public function jsonRespond($message, $status) {
         http_response_code($code);
 
         $response = array(

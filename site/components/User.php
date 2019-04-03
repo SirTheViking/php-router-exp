@@ -14,28 +14,17 @@ class User {
 
     // Clean it up and make sure it looks good
     public function setUsername($newUsername) {
-        if(empty($newUsername)) {
-            // Do something
-        }
-
+        // Cleanup could be done better but this is supposed to be simple
         $this->username = htmlspecialchars($newUsername);
     }
 
     // Hash and salt the password
     public function setPassword($newPassword) {
-        if(empty($newPassword)) {
-            // Do something
-        }
-
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->password = $hash;
     }
 
     public function setEmail($newEmail) {
-        if(empty($newEmail)) {
-            // Do something
-        }
-
         $this->email = htmlspecialchars($newEmail);
     }
 

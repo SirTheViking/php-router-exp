@@ -3,9 +3,7 @@
 include_once "db.php";
 
 class User {
-    private $username;
-    private $password;
-    private $email;
+    private $email, $password, $username;
     private $database;
     private $isLoggedIn;
 
@@ -33,7 +31,7 @@ class User {
     }
 
     // WIP
-    public function login() {
+    public function login() : bool {
         $connection = $this->database->getConnection();
 
         $statement = $connection->prepare(
@@ -47,7 +45,7 @@ class User {
     }
 
     // WIP
-    public function register() {
+    public function register() : bool {
         $connection = $this->database->getConnection();
 
         $statement = $connection->prepare(

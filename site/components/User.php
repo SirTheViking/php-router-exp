@@ -10,9 +10,9 @@ class User {
     function __construct($email, $password, $username = NULL) {
         $this->database = new Database();
         $this->connection = $this->database->getConnection();
-        $this->email    = $this->setEmail($email);
+        $this->setEmail($email);
         $this->password = $password; // Hash later if register
-        $this->username = is_null($username) ? $username : $this->setUsername($username) ;
+        $this->setUsername($username);
     }
 
     // Clean it up and make sure it looks good

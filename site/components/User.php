@@ -7,24 +7,28 @@ class User {
     private $password;
     private $email;
     private $database;
+    private $isLoggedIn;
 
-    function __construct() {
+    function __construct($email, $password, $username = NULL) {
         $this->database = new Database();
+        $this->email    = $email;
+        $this->password = $password;
+        $this->username = is_null($username) ? $username : setUsername($username) ;
     }
 
     // Clean it up and make sure it looks good
-    public function setUsername($newUsername) {
+    private function setUsername($newUsername) {
         // Cleanup could be done better but this is supposed to be simple
         $this->username = htmlspecialchars($newUsername);
     }
 
     // Hash and salt the password
-    public function setPassword($newPassword) {
+    private function setPassword($newPassword) {
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->password = $hash;
     }
 
-    public function setEmail($newEmail) {
+    private function setEmail($newEmail) {
         $this->email = htmlspecialchars($newEmail);
     }
 

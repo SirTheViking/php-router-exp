@@ -4,14 +4,15 @@ include_once "db.php";
 
 class User {
     private $email, $password, $username;
-    private $database;
-    private $isLoggedIn;
+    private $database. $connection;
+    private $error;
 
     function __construct($email, $password, $username = NULL) {
         $this->database = new Database();
-        $this->email    = $email;
-        $this->password = $password;
-        $this->username = is_null($username) ? $username : setUsername($username) ;
+        $this->connection = $this->database->getConnection();
+        $this->email    = $this->setEmail($email);
+        $this->password = $password; // Hash later if register
+        $this->username = is_null($username) ? $username : $this->setUsername($username) ;
     }
 
     // Clean it up and make sure it looks good
@@ -21,7 +22,7 @@ class User {
     }
 
     // Hash and salt the password
-    private function setPassword($newPassword) {
+    private function hashPassword($newPassword) {
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->password = $hash;
     }
@@ -32,9 +33,7 @@ class User {
 
     // WIP
     public function login() : bool {
-        $connection = $this->database->getConnection();
-
-        $statement = $connection->prepare(
+        $statement = $this->connection->prepare(
             "SELECT * FROM users WHERE username = :username AND email = :email;"
         );
         // All data in database is strings so this works fine
@@ -42,13 +41,24 @@ class User {
             ":username" => $this->username,
             ":email"    => $this->email
         ));
+
+        $data = $statement->fetch();
+        if(empty($data)) {
+            $this->error = "No user with that username or email exists";    
+            return false;
+        }
+
+        if(!password_verify($this->password, $data["password"])) {
+            $this->error = "Incorrect password for the username/email combination";
+            return false;
+        }
+
+        return true;
     }
 
     // WIP
     public function register() : bool {
-        $connection = $this->database->getConnection();
-
-        $statement = $connection->prepare(
+        $statement = $this->connection->prepare(
             "INSERT INTO users (username, password, email) VALUES (:username, :password, :email);"
         );
         // All data in database is strings so this works fine
@@ -57,6 +67,12 @@ class User {
             ":password" => $this->password,
             ":email"    => $this->email
         ));
+
+        return true;
+    }
+
+    public function getErrorMessage() {
+        return $this->error;
     }
 }
 

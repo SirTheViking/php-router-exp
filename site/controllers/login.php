@@ -12,7 +12,13 @@ $user = new User(
     $_POST["email"],
     $_POST["password"]
 );
-$user->login();
+
+if($user->login()) {
+    // WIP
+    echo "Logged in!";
+} else {
+    echo $user->getErrorMessage();
+}
 // TODO: Simple template engine to render easier?
 
 exit(0);

@@ -18,7 +18,7 @@ class User {
     // Clean it up and make sure it looks good
     private function setUsername($newUsername) {
         // Cleanup could be done better but this is supposed to be simple
-        $this->username = htmlspecialchars($newUsername);
+        $this->username = htmlentities($newUsername);
     }
 
     // Hash and salt the password
@@ -28,7 +28,7 @@ class User {
     }
 
     private function setEmail($newEmail) {
-        $this->email = htmlspecialchars($newEmail);
+        $this->email = htmlentities($newEmail);
     }
 
     // WIP

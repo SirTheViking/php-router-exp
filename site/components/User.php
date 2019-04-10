@@ -23,7 +23,7 @@ class User {
 
     // Hash and salt the password
     private function hashPassword($newPassword) : void {
-        $hash = password_hash($newPassword, PASSWORD_BCRYPT);
+        $hash = password_hash($newPassword, PASSWORD_ARGON2ID);
         $this->password = $hash;
     }
 

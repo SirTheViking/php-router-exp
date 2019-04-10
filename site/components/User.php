@@ -4,7 +4,7 @@ include_once "db.php";
 
 class User {
     private $email, $password, $username;
-    private $database. $connection;
+    private $database, $connection;
     private $error;
 
     function __construct($email, $password, $username = NULL) {
@@ -16,18 +16,18 @@ class User {
     }
 
     // Clean it up and make sure it looks good
-    private function setUsername($newUsername) {
+    private function setUsername($newUsername) : void {
         // Cleanup could be done better but this is supposed to be simple
         $this->username = htmlentities($newUsername, ENT_QUOTES, "UTF-8");
     }
 
     // Hash and salt the password
-    private function hashPassword($newPassword) {
+    private function hashPassword($newPassword) : void {
         $hash = password_hash($newPassword, PASSWORD_BCRYPT);
         $this->password = $hash;
     }
 
-    private function setEmail($newEmail) {
+    private function setEmail($newEmail) : void {
         $this->email = htmlentities($newEmail, ENT_QUOTES, "UTF-8");
     }
 
@@ -71,7 +71,7 @@ class User {
         return true;
     }
 
-    public function getErrorMessage() {
+    public function getErrorMessage() : string {
         return $this->error;
     }
 }
